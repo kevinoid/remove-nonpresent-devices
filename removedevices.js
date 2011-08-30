@@ -14,6 +14,10 @@
  *   (or in the search PATH)
  *   This file can be downloaded from Microsoft and is described at
  *   http://support.microsoft.com/kb/311272
+ *   IMPORTANT:  For newer versions of Windows (Vista and later), do not
+ *   download from KB311272, it will not work.  Follow the instructions for
+ *   extracting the latest version of devcon from the Windows WDK here:
+ *   http://social.technet.microsoft.com/wiki/contents/articles/how-to-obtain-the-current-version-of-device-console-utility-devcon-exe.aspx
  *
  * Usage:
  * - To remove all non-present devices (except legacy and software devices)
@@ -71,6 +75,7 @@ var options = {
 // Make sure we are running with CScript so user can see output
 if (!/cscript\.exe$/i.test(WScript.FullName)) {
     var cmdline = "cscript.exe";
+    var args = WScript.Arguments;
     cmdline += " \"" + WScript.ScriptFullName + "\"";
     for (var i=0; i<args.length; ++i)
 	cmdline += " \"" + args(i) + "\"";
