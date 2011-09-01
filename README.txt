@@ -43,3 +43,6 @@ More Information
 Installation instructions are available in INSTALL.txt.
 Major changes are listed in ChangeLog.txt.
 Complete license text is available in COPYING.txt.
+
+The latest version of this software and the bug tracking system are
+available on GitHub <https://github.com/kevinoid/remove-nonpresent-devices>.
