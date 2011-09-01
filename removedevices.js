@@ -1,58 +1,98 @@
-/* Script to remove unnecessary (nonpresent) devices using DevCon
- *
- * WARNING:
- *   This script will remove/uninstall devices from your computer system.
+/*
+ * Remove Non-present Devices using DevCon
+ * =======================================
+ * 
+ * removedevices.js is a script to automatically remove all non-present (i.e.
+ * disconnected) devices from a Windows computer system.  This can often be
+ * useful to prevent misbehaving and/or unnecessary drivers from being loaded.
+ * 
+ * WARNING
+ * -------
+ * This script will remove/uninstall devices from your computer system.
  * Although several important types of devices have been excluded from the
  * default removal process, the possibility of removing devices critical to
  * the operation of your computer system still exists.  PLEASE double-check
  * the list of devices which will be removed before pressing "Y" and PLEASE
- * create a system backup if you are removely concerned about making your
+ * create a system backup if you are remotely concerned about making your
  * system unbootable.
- *
- * Dependencies:
- * - devcon.exe must be in the same directory as this script
- *   (or in the search PATH)
- *   This file can be downloaded from Microsoft and is described at
- *   http://support.microsoft.com/kb/311272
- *   IMPORTANT:  For newer versions of Windows (Vista and later), do not
- *   download from KB311272, it will not work.  Follow the instructions for
- *   extracting the latest version of devcon from the Windows WDK here:
- *   http://social.technet.microsoft.com/wiki/contents/articles/how-to-obtain-the-current-version-of-device-console-utility-devcon-exe.aspx
- *
- * Usage:
- * - To remove all non-present devices (except legacy and software devices)
- *   either double-click the script or invoke it from the command prompt
- *
- * - To delete devices without confirmation, run
- *	removedevices.js /noconfirm
- *
- * - To see the output of DevCon as the script executes, run
- *	removedevices.js /verbose
- *
- * - To create a list of devices which would be removed, run
- *	removedevices.js /outfile:devicelist.txt
- *
- * - To delete all devices (device IDs) listed in a file, run
- *	removedevices.js /infile:devicelist.txt
- *
- * Changelog:
- *  2010-02-21	Fix argument passing when invoked with wscript
- *  2010-02-06  Initial release
- *
- * License:
- * Copyright (c) 2009, Kevin Locke <klocke@digitalenginesoftware.com>
  * 
- * Permission to use, copy, modify, and/or distribute this software for any
- * purpose with or without fee is hereby granted, provided that the above
- * copyright notice and this permission notice appear in all copies.
+ * Examples
+ * --------
+ *  - To remove all non-present devices (except legacy and software devices)
+ *    either double-click the script or invoke it from the command prompt
+ *    without options.
  * 
- * THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
- * WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
- * MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
- * ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
- * WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
- * ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
- * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+ *  - To delete devices without confirmation, run
+ * 
+ *         removedevices.js /noconfirm
+ * 
+ *  - To see the output of DevCon as the script executes, run
+ * 
+ *         removedevices.js /verbose
+ * 
+ *  - To create a list of devices which would be removed, run
+ * 
+ *         removedevices.js /outfile:devicelist.txt
+ * 
+ *  - To delete all devices (device IDs) listed in a file, run
+ * 
+ *         removedevices.js /infile:devicelist.txt
+ * 
+ * 
+ * Installation Instructions
+ * =========================
+ * 
+ * This script requires that devcon.exe be available, either in the same
+ * directory as this script or in a directory included in the PATH environment
+ * variable.
+ * 
+ * For Windows XP and earlier, devcon.exe can be downloaded from Microsoft as
+ * described in <http://support.microsoft.com/kb/311272>.
+ * 
+ * For Windows Vista and later, a newer version of devcon.exe is required.
+ * It can be extracted from the Windows WDK as described in 
+ * <http://social.technet.microsoft.com/wiki/contents/articles/how-to-obtain-the-current-version-of-device-console-utility-devcon-exe.aspx>.
+ * 
+ * 
+ * ChangeLog
+ * =========
+ * 
+ * 2011-08-30  Kevin Locke <klocke@digitalenginesoftware.com>
+ * 
+ *     * *.*: Add typical package accoutrements (README, ChangeLog, etc)
+ * 
+ * 2011-02-10  Kevin Locke <klocke@digitalenginesoftware.com>
+ * 
+ *     * removedevices.js: Fix crash when relaunching with CScript
+ *     * removedevices.js: Add note about devcon version for Vista and later
+ * 
+ * 2010-02-21  Kevin Locke <klocke@digitalenginesoftware.com>
+ * 
+ *     * removedevices.js: Initial Release
+ * 
+ * 
+ * COPYING
+ * =======
+ *
+ * Copyright 2010-2011 Digital Engine Software, LLC
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
  */
 
 var WShell = WScript.CreateObject("WScript.Shell");
