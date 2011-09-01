@@ -1,0 +1,13 @@
+Installation Instructions
+=========================
+
+This script requires that devcon.exe be available, either in the same
+directory as this script or in a directory included in the PATH environment
+variable.
+
+For Windows XP and earlier, devcon.exe can be downloaded from Microsoft as
+described in <http://support.microsoft.com/kb/311272>.
+
+For Windows Vista and later, a newer version of devcon.exe is required.
+It can be extracted from the Windows WDK as described in 
+<http://social.technet.microsoft.com/wiki/contents/articles/how-to-obtain-the-current-version-of-device-console-utility-devcon-exe.aspx>.
