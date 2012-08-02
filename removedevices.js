@@ -57,6 +57,10 @@
  * ChangeLog
  * =========
  * 
+ * 2012-08-02  Ryan Pavlik <abiryan@ryand.net>
+ *
+ *     * removedevices.js: Default to not removing extra volume shadow copies
+ *
  * 2011-08-30  Kevin Locke <klocke@digitalenginesoftware.com>
  * 
  *     * *.*: Add typical package accoutrements (README, ChangeLog, etc)
@@ -101,6 +105,7 @@ var options = {
     deleteall: { desc: "Delete all non-present devices (Dangerous)" },
     deletelegacy: { desc: "Also delete legacy non-present devices (Dangerous)" },
     deletesw: { desc: "Also delete software non-present devices (Dangerous)" },
+    deletevss: { desc: "Also delete volume shadow service non-present devices (potentially dangerous)" },
     infile: { desc: "Remove devices listed in a file (same format as devcon output)",
 	      has_arg: true },
     help: { desc: "Print this help message" },
@@ -215,8 +220,9 @@ function get_nonpresent_devices() {
 
     var deletelegacy = !!optvals["deletelegacy"];
     var deletesw = !!optvals["deletesw"];
+    var deletevss = !!optvals["deletevss"];
     if (optvals["deleteall"])
-	deletelegacy = deletesw = true;
+	deletelegacy = deletesw = deletevss = true;
 
     var alloutput, presentoutput;
     try {
@@ -252,11 +258,13 @@ function get_nonpresent_devices() {
 
     var htreere = /^HTREE\\/;
     var legacyre = /^ROOT\\LEGACY_/;
+    var vssre = /^STORAGE\\VOLUMESNAPSHOT/;
     var swre = /^SW(?:MUXBUS)?\\/;
     nonpresentdevices = nonpresentdevices.filter(function(dev) {
 	    // Note:  Boolean inverted for efficiency (only regex when needed)
 	    return !((!deletelegacy && legacyre.test(dev.devid)) ||
 		    (!deletesw && swre.test(dev.devid)) ||
+			(!deletevss && vssre.test(dev.devid)) ||
 		    htreere.test(dev.devid));
 	});
 
