@@ -220,8 +220,9 @@ function get_nonpresent_devices() {
 
     var deletelegacy = !!optvals["deletelegacy"];
     var deletesw = !!optvals["deletesw"];
+    var deletevss = !!optvals["deletevss"];
     if (optvals["deleteall"])
-	deletelegacy = deletesw = true;
+	deletelegacy = deletesw = deletevss = true;
 
     var alloutput, presentoutput;
     try {
